@@ -54,5 +54,5 @@ names = ['movie', 'concert', 'party', 'beach', 'travel', 'restaurant']
 User.create(people)
 
 User.all.each_with_index do |user, i|
-  user.events.create(name: names[i], description: descriptions[i], city: cities[i], country: countries[i], date_of_event: Date.today + 20 + i, image_url: "https://picsum.photos/200/300?image=#{i}", attendees_count: 0)
+  user.events.create(name: names[i], description: descriptions[i], city: cities[i], country: countries[i], date_of_event: Date.today + 20 + i, attendees_count: 0)
 end

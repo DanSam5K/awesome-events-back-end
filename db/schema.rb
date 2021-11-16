@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 2021_11_15_195837) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
+    t.string "name", null: false
+    t.text "description", null: false
     t.bigint "creator_id", null: false
-    t.string "image_url"
-    t.datetime "date_of_event"
-    t.string "city"
-    t.string "country"
-    t.integer "attendees_count"
+    t.text "image_data", null: false
+    t.datetime "date_of_event", null: false
+    t.string "city", null: false
+    t.string "country", null: false
+    t.integer "attendees_count", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_events_on_creator_id"

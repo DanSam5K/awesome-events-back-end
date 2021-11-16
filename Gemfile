@@ -30,6 +30,11 @@ gem 'devise', '~> 4.2'
 gem 'devise-jwt', '~> 0.9.0'
 gem 'rack-cors'
 
+# Cloudinary set-up
+gem 'image_processing', '~> 1.2'
+gem 'shrine', '~> 3.3'
+gem 'shrine-cloudinary', '~> 1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
