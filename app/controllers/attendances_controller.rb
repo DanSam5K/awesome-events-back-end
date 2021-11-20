@@ -1,13 +1,19 @@
 class AttendancesController < ApplicationController
   before_action :authenticate_user!
 
-  def create
-    @attendance = current_user.attendances.build(attendance_params)
+  def index
+    render json: current_user.attending_events, status: :ok
+  end
 
-    if @attendance.save
+  def create
+    unless current_user.attendances.find_by(attendance_params)
+      @attendance = current_user.attendances.build(attendance_params)
+    end
+
+    if @attendance&.save
       render json: @attendance, status: :created, location: @attendance
     else
-      render json: @attendance.errors, status: :unprocessable_entity
+      render json: @attendance&.errors, status: :unprocessable_entity
     end
   end
 
