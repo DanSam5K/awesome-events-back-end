@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   }
   get '/logged_user', to: 'logged_users#index'
   post '/events', to: 'events#create'
+  delete '/events/:id', to: 'events#destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
