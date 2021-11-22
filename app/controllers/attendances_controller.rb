@@ -2,7 +2,8 @@ class AttendancesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: current_user.attending_events, status: :ok
+    render json: current_user.attending_events.where('date_of_event > ?', Time.now.to_s.split[0]).order(:date_of_event),
+           status: :ok
   end
 
   def create
