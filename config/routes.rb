@@ -6,8 +6,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   get '/logged_user', to: 'logged_users#index'
+
+  get '/events', to: 'events#index'
   post '/events', to: 'events#create'
   delete '/events/:id', to: 'events#destroy'
+
+  get '/attendances', to: 'attendances#index'
   post '/attendances', to: 'attendances#create'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

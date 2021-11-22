@@ -2,6 +2,14 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event, only: [:destroy]
 
+  def index
+    if params[:type] == 'created'
+      render json: current_user.events, status: :ok
+    else
+      render json: Event.all, status: :ok
+    end
+  end
+
   def create
     @event = current_user.events.build(event_params)
 
@@ -14,7 +22,7 @@ class EventsController < ApplicationController
 
   def destroy
     if @event.creator_id == current_user.id
-      Cloudinary::Uploader.destroy(@event.image)
+      Cloudinary::Uploader.destroy(@event.image.split('/')[-3..].join('/').split('.')[0], invalidate: true)
       @event.destroy
       render json: { message: 'Event successfully deleted' }, status: :ok
     else
@@ -29,7 +37,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    image = Cloudinary::Uploader.upload(params[:image], folder: 'awesome_events/cache')
+    image = Cloudinary::Uploader.upload(params[:image], folder: 'awesome_events')
     params.permit(:name, :description, :date_of_event, :city, :country).merge(image: image['url'])
   end
 end
