@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
       message: 'You are logged in.',
       user: {
         name: current_user.name,
-        email: current_user.email,
+        id: current_user.id,
         token: current_user.token
       }
     },

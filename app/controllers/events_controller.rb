@@ -4,10 +4,9 @@ class EventsController < ApplicationController
 
   def index
     if params[:type] == 'created'
-      render json: current_user.events.where('date_of_event > ?', Time.now.to_s.split[0]).order(:date_of_event),
-             status: :ok
+      render json: current_user.events, status: :ok
     else
-      render json: Event.all.where('date_of_event > ?', Time.now.to_s.split[0]).order(:date_of_event), status: :ok
+      render json: Event.all, status: :ok
     end
   end
 
@@ -39,6 +38,6 @@ class EventsController < ApplicationController
 
   def event_params
     image = Cloudinary::Uploader.upload(params[:image], folder: 'awesome_events')
-    params.permit(:name, :description, :date_of_event, :city, :country).merge(image: image['url'])
+    params.permit(:name, :description).merge(image: image['url'])
   end
 end

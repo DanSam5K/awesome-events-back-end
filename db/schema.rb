@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2021_11_15_195837) do
   create_table "attendances", force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "attendee_id", null: false
+    t.datetime "date"
+    t.string "city"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
@@ -29,9 +31,6 @@ ActiveRecord::Schema.define(version: 2021_11_15_195837) do
     t.text "description"
     t.bigint "creator_id", null: false
     t.text "image"
-    t.datetime "date_of_event"
-    t.string "city"
-    t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_events_on_creator_id"
