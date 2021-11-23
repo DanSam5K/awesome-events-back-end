@@ -2,8 +2,23 @@ class AttendancesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: current_user.attending_events.where('date_of_event > ?', Time.now.to_s.split[0]).order(:date_of_event),
-           status: :ok
+    attending_events = current_user
+      .attendances.where('date > ?', Time.now.to_s.split[0])
+      .order(:date)
+      .map do |attendance|
+        event = Event.find(attendance.event_id)
+        creator = User.find(event.creator_id)
+        {
+          name: event.name,
+          description: event.description,
+          image: event.image,
+          creator_id: creator.id,
+          creator_name: creator.name,
+          date: attendance.date,
+          city: attendance.city
+        }
+      end
+    render json: attending_events, status: :ok
   end
 
   def create
@@ -21,6 +36,6 @@ class AttendancesController < ApplicationController
   private
 
   def attendance_params
-    params.permit(:event_id)
+    params.require(:attendance).permit(:event_id, :date, :city)
   end
 end
