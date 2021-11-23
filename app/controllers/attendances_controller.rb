@@ -11,6 +11,7 @@ class AttendancesController < ApplicationController
         {
           name: event.name,
           description: event.description,
+          id: attendance.id,
           image: event.image,
           creator_id: creator.id,
           creator_name: creator.name,
