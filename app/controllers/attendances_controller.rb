@@ -1,5 +1,6 @@
 class AttendancesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_attendance, only: [:destroy]
 
   def index
     attending_events = current_user
@@ -34,7 +35,20 @@ class AttendancesController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.id == @attendance.attendee_id
+      @attendance.destroy
+      render json: {}, status: :ok
+    else
+      render json: {}, status: :unauthorized
+    end
+  end
+
   private
+
+  def set_attendance
+    @attendance = Attendance.find(params[:id])
+  end
 
   def attendance_params
     params.require(:attendance).permit(:event_id, :date, :city)
